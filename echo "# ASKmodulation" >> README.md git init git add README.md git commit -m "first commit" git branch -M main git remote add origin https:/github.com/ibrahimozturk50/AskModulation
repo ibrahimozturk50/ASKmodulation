@@ -1,0 +1,56 @@
+%ASK Modulation
+clear;
+clc;
+b = input('Enter the Bit stream \n '); %b = [0 1 0 1 1 1 0];
+n = length(b);
+t = 0:.01:n;
+x = 1:1:(n+1)*100;
+
+for i = 1:n
+    
+        bw(x(i*100:(i+1)*100)) = ba(i)
+end
+
+bw = bw(100:end);
+sint = sin(2*pi*10*t);
+st = bw.*(sint);
+
+figure(1)
+subplot(5,1,1)
+plot(t,bw)
+grid on ; axis([0 n -2 +2])
+xlabel('Time(Sec)');
+ylabel('');
+title('Bit');
+
+
+subplot(5,1,2)
+plot(t,sint)
+grid on ; axis([0 n -2 +2])
+xlabel('Time(Sec)');
+ylabel('Amplitude(Volts)');
+title('Carrier Signal');
+
+subplot(5,1,3)
+plot(t,st)
+grid on ; axis([0 n -2 +2])
+xlabel('Time(Sec)');
+ylabel('Amplitude(Volts)');
+title('ASK Modulated Signal(Noiseless)');
+
+subplot(5,1,4)
+y = awgn(bw,10,'measured');
+plot(t,y)
+grid on ; axis([0 n -2 +2])
+xlabel('Time(Sec)');
+ylabel('');
+title('Bit(with Noise)');
+
+subplot(5,1,5)
+gs = awgn(st,10,'measured');
+plot(t,gs)
+grid on ; axis([0 n -2 +2])
+xlabel('Time(Sec)');
+ylabel('Amplitude(Volts)');
+title('ASK Modulated Signal(with Noise)');
+
